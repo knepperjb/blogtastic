@@ -119,6 +119,15 @@ class Blogtastic::Server < Sinatra::Application
     redirect to ('/posts/' + params[:postid])
   end
 
+  post '/posts/:id/edit' do
+    db = Blogtastic.create_db_connection('blogtastic')
+    Blogtastic::PostsRepo.save(db, {
+      :content => params[:edit],
+      :id => params[:id]
+      })
+      redirect to ('/posts/' + params[:id])
+  end
+
   # view a particular post
   get '/posts/:id' do
     db = Blogtastic.create_db_connection 'blogtastic'

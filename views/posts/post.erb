@@ -6,9 +6,15 @@
 
      <% if session['user_id'] == @user['id'] %>
          <div>
-          <form action='/posts/<%= @post['id'] %>' method='post'>
+          <form action='/posts/<%= @post['id'] %>' method='post'><br>
             <input type='hidden' name='_method' value='delete'>
             <button type='submit'>Delete Post</button>
+          </form>
+        </div>
+        <div>
+          <form action='/posts/<%= @post['id'] %>/edit' method='post'>
+            <textarea name='edit'><%= @post['content'] %></textarea>
+            <button type='submit'>Edit Post</button>
           </form>
         </div>
      <% end %>
