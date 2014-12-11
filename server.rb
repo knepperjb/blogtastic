@@ -110,11 +110,13 @@ class Blogtastic::Server < Sinatra::Application
     redirect to '/posts'
   end
 
-  post '/delete_comment/:id' do
+  # put '/comments/:id' do
+  # get '/comments/:id' do
+  delete '/comments/:postid/:id' do
     @x = params[:id]
     db = Blogtastic.create_db_connection('blogtastic')
     Blogtastic::CommentsRepo.destroy(db, @x)
-    redirect to ('/posts')
+    redirect to ('/posts/' + params[:postid])
   end
 
   # view a particular post

@@ -30,12 +30,18 @@ module Blogtastic
         title VARCHAR,
         content VARCHAR,
         user_id INT references users(id)
+        on delete cascade
+        on update cascade
       );
       CREATE TABLE IF NOT EXISTS comments(
         id SERIAL PRIMARY KEY,
         content VARCHAR,
-        user_id INT references users(id),
+        user_id INT references users(id)
+        on delete cascade
+        on update cascade,
         post_id INT references posts(id)
+        on delete cascade
+        on update cascade
       );
     SQL
   end

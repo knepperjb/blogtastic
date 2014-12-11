@@ -29,14 +29,14 @@ module Blogtastic
     def self.destroy db, id
       sql = %q[DELETE FROM comments where id = $1]
       db.exec(sql, [id])
-      comment_exists?(db, id)
+      # comment_exists?(db, id)
     end
 
     private
 
     def self.comment_exists? db, id
       result = find db, id
-      !!result.first
+      # !!result.first
     end
   end
 end

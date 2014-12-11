@@ -2,7 +2,18 @@
   <div class='eight columns omega aside-container'>
     <h4><%= @post['title'] %> by <%= @user['username'] %></h4>
     <%= @post['content'] %>
+    <br>
+
+     <% if session['user_id'] == @user['id'] %>
+         <div>
+          <form action='/posts/<%= @post['id'] %>' method='post'>
+            <input type='hidden' name='_method' value='delete'>
+            <button type='submit'>Delete Post</button>
+          </form>
+        </div>
+     <% end %>
   </div>
+  
   
   <div class='eight columns omega aside-container'>
     <h4>Comments section</h4>
@@ -12,20 +23,22 @@
       <input type='submit' value='Submit'>
     </form>
   
-    
+
     <% @comments.each do |comment| %>
-      <p class='comment'><%= comment['user'] %>: <%= comment['content'] %><form actio='/delete_comment/<%= comment['id'] %>' method='post'><button class='delete' type='submit'>Delete Comment</button></form></p>
+    <div>
+      <p class='comment'><%= comment['user'] %>: <%= comment['content'] %>
+        <% if session['user_id'] == @user['id'] || session['user_id'] == comment['user_id']  %>
+        <form action='/comments/<%= @post['id'] %>/<%= comment['id'] %>' method="post">
+        <input type="hidden" name="_method" value="delete" >
+        <button class='delete' type='submit'>Delete Comment</button>
+      </form>
+      <% end %>
+    </p>
     <% end %>
+  </div>
 
   </div>
+
 </div><!-- end sixteen columnns -->
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
 
-$(document).on('click', 'button.delete', function (e) {
-  e.preventDefault();
-  $('p.comment').remove();
-});
-
-</script>
